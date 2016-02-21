@@ -1,25 +1,10 @@
+import AltContainer from 'alt-container';
 import React from 'react';
-
 import Notes from './Notes'
-
 import NoteActions from '../actions/NoteActions';
 import NoteStore from '../stores/NoteStore';
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = NoteStore.getState();
-  }
-  componentDidMount() {
-    NoteStore.listen(this.storeChanged);
-  }
-  componentWillUnmount() {
-    NoteStore.unlisten(this.storeChanged);
-  }
-  storeChanged = (state) => {
-    this.setState(state);
-  }
   addNote() {
     NoteActions.create({task: 'New task'});
   }
@@ -34,7 +19,6 @@ export default class App extends React.Component {
     NoteActions.delete(id);
   }
   render() {
-    const notes = this.state.notes;
     const props = {
         onEdit: this.editNote,
         onDelete: this.deleteNote
@@ -43,7 +27,14 @@ export default class App extends React.Component {
     return (
       <div>
         <button className="add-note" onClick={this.addNote}>+</button>
-        <Notes {...props} notes={notes} />
+        <AltContainer
+          stores={[NoteStore]}
+          inject={{
+            notes: () => NoteStore.getState().notes
+          }}
+        >
+          <Notes {...props} />
+        </AltContainer>
       </div>
     );
   }

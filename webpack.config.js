@@ -1,9 +1,7 @@
 const webpack = require('webpack')
 const merge = require('webpack-merge');
 const path = require('path');
-
 var stylelint = require('stylelint');
-
 const NpmInstallPlugin = require('npm-install-webpack-plugin');
 
 const TARGET = process.env.npm_lifecycle_event;
@@ -63,6 +61,7 @@ const common = {
 // Default configuration
 if(TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
+    devtool: 'eval-source-map',
     devServer: {
       contentBase: PATHS.build,
 
@@ -72,8 +71,6 @@ if(TARGET === 'start' || !TARGET) {
       progress: true,
 
       stats: 'errors-only',
-
-      devtool: 'eval-source-map',
 
       host: process.env.HOST || '0.0.0.0',
       port: process.env.PORT

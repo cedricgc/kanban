@@ -24,18 +24,18 @@ const common = {
     filename: 'bundle.js'
   },
   module: {
-    preLoaders: [
-      {
-        test: /\.css$/,
-        loaders: ['postcss'],
-        include: PATHS.app
-      },
-      {
-        test: /\.jsx?$/,
-        loaders: ['eslint'],
-        include: PATHS.app
-      }
-    ],
+    // preLoaders: [
+    //   {
+    //     test: /\.css$/,
+    //     loaders: ['postcss'],
+    //     include: PATHS.app
+    //   },
+    //   {
+    //     test: /\.jsx?$/,
+    //     loaders: ['eslint'],
+    //     include: PATHS.app
+    //   }
+    // ],
     loaders: [
       {
         test: /\.css$/,
